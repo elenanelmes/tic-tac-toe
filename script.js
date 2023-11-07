@@ -13,11 +13,11 @@ let winner;
 let resetButton;
 
 function createBoard() {
-    const startCells = [
+    const gridCells = [
         "", "", "", "", "", "", "", "", ""
     ]
 
-    startCells.forEach((cell, index) => {
+    gridCells.forEach((cell, index) => {
         const cellElement = document.createElement("div");
         cellElement.classList.add("square");
         cellElement.id = index;
