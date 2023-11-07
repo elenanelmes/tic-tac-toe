@@ -72,15 +72,18 @@ function checkResults() {
         const playerTwoWins = combo.every(cell => allSquares[cell].firstChild?.classList.contains(playerTwo));
 
         if (playerOneWins) {
-            announceWinner(playerOne);
+            winner = playerOne;
+            announceWinner(winner);
             allSquares.forEach(square => square.replaceWith(square.cloneNode(true)));
             gameOver = true;
         } else if (playerTwoWins) {
-            announceWinner(playerTwo);
+            winner = playerTwo;
+            announceWinner(winner);
             allSquares.forEach(square => square.replaceWith(square.cloneNode(true)));
             gameOver = true;
         } else if (!playerOneWins && !playerTwoWins && turnCount === 9) {
-            announceWinner(draw);
+            winner = draw;
+            announceWinner(winner);
             gameOver = true;
         }
     })
