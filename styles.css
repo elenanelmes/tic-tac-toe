@@ -4,12 +4,14 @@
 }
 
 html {
-    font-family: sans-serif;
+    font-family: "Risque", serif;
     font-size: 16px;
 }
 
 body {
     align-items: center;
+    background: darkslategrey;
+    color: darkorange;
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -17,12 +19,30 @@ body {
     padding: 2rem;
 }
 
+button {
+    background: black;
+    border: 1px solid black;
+    border-radius: 1rem;
+    color: white;
+    cursor: pointer;
+    font-family: "Risque", serif;
+    font-size: 1.25rem;
+    margin-top: 1rem;
+    padding: 1rem 0;
+    width: 300px;
+}
+
 h1 {
+    font-size: 3rem;
     margin-bottom: 1rem;
 }
 
-#gameboard {
-    background-color: white;
+p {
+    font-size: 1.25rem;
+}
+
+#gameBoard {
+    background-color: grey;
     border: 1px solid black;
     border-radius: 1rem;
     display: flex;
@@ -58,8 +78,8 @@ h1 {
     }
 }
 
-.Ghost,
-.Pumpkin {
+.player {
+    font-size: 4rem;
     position: relative;
 }
 
