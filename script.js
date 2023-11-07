@@ -7,6 +7,8 @@ const playerTwo = "Ghost";
 let turn = playerOne;
 let turnCount = 0;
 
+let winner;
+
 let resetButton;
 
 function createBoard() {
@@ -57,27 +59,26 @@ function checkResults() {
         [2, 4, 6]
     ]
 
-    let winner;
-    let gameOver = false;
+    let gameOver = new Boolean(false);
 
     winningCombos.forEach(combo => {
         const allSquares = document.querySelectorAll(".square");
-        const pumpkinWins = combo.every(cell => allSquares[cell].firstChild?.classList.contains("Pumpkin"));
-        const ghostWins = combo.every(cell => allSquares[cell].firstChild?.classList.contains("Ghost"));
+        const playerOneWins = combo.every(cell => allSquares[cell].firstChild?.classList.contains(playerOne));
+        const playerTwoWins = combo.every(cell => allSquares[cell].firstChild?.classList.contains(playerTwo));
 
-        if (pumpkinWins) {
+        if (playerOneWins) {
             winner = playerOne;
             results.textContent = `${winner} wins!`;
             allSquares.forEach(square => square.replaceWith(square.cloneNode(true)));
             gameOver = true;
             return;
-        } else if (ghostWins) {
+        } else if (playerTwoWins) {
             winner = playerTwo;
             results.textContent = `${winner} wins!`;
             allSquares.forEach(square => square.replaceWith(square.cloneNode(true)));
             gameOver = true;
             return;
-        } else if (turnCount === 9) {
+        } else if ((!playerOneWins || !playerTwoWins) && turnCount === 9) {
             winner = "Friendship";
             results.textContent = `${winner} wins!`;
             gameOver = true;
@@ -98,6 +99,7 @@ function setGameOver() {
 
 function resetGame() {
     turnCount = 0;
+    turn = winner;
 
     const allSquares = document.querySelectorAll(".square");
     for (const square of allSquares) {
@@ -105,7 +107,7 @@ function resetGame() {
         square.addEventListener("click", addTurn);
     }
 
-    results.innerHTML = `${turn} goes first!`;
+    results.innerHTML = `${winner} goes first!`;
 
     resetButton.parentNode.removeChild(resetButton);
 }
