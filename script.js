@@ -3,6 +3,7 @@ const results = document.querySelector("#results");
 
 const playerOne = "Pumpkin";
 const playerTwo = "Ghost";
+const draw = "Friendship";
 
 let turn = playerOne;
 let turnCount = 0;
@@ -47,6 +48,10 @@ function addTurn(e) {
     checkResults();
 }
 
+function announceWinner(winner) {
+    results.textContent = `${winner} wins!`;
+}
+
 function checkResults() {
     const winningCombos = [
         [0, 1, 2],
@@ -67,20 +72,15 @@ function checkResults() {
         const playerTwoWins = combo.every(cell => allSquares[cell].firstChild?.classList.contains(playerTwo));
 
         if (playerOneWins) {
-            winner = playerOne;
-            results.textContent = `${winner} wins!`;
+            announceWinner(playerOne);
             allSquares.forEach(square => square.replaceWith(square.cloneNode(true)));
             gameOver = true;
-            return;
         } else if (playerTwoWins) {
-            winner = playerTwo;
-            results.textContent = `${winner} wins!`;
+            announceWinner(playerTwo);
             allSquares.forEach(square => square.replaceWith(square.cloneNode(true)));
             gameOver = true;
-            return;
-        } else if ((!playerOneWins || !playerTwoWins) && turnCount === 9) {
-            winner = "Friendship";
-            results.textContent = `${winner} wins!`;
+        } else if (!playerOneWins && !playerTwoWins && turnCount === 9) {
+            announceWinner(draw);
             gameOver = true;
         }
     })
@@ -99,15 +99,19 @@ function setGameOver() {
 
 function resetGame() {
     turnCount = 0;
-    turn = winner;
+
+    if (winner === playerOne || winner === playerTwo) {
+        turn = winner;
+    } else {
+        turn = playerOne;
+    }
+    results.innerHTML = `${turn} goes first!`;
 
     const allSquares = document.querySelectorAll(".square");
     for (const square of allSquares) {
         square.textContent = "";
         square.addEventListener("click", addTurn);
     }
-
-    results.innerHTML = `${winner} goes first!`;
 
     resetButton.parentNode.removeChild(resetButton);
 }
