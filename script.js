@@ -92,7 +92,7 @@ function checkResults() {
 
 function setGameOver() {
     resetButton = document.createElement("button");
-    resetButton.textContent = "Play Again?";
+    resetButton.textContent = "Play Again";
     document.body.append(resetButton);
     resetButton.addEventListener("click", resetGame);
 }
