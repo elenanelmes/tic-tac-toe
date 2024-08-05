@@ -35,17 +35,18 @@ function addTurn(e) {
     showTurn.classList.add("player", turn);
     e.target.append(showTurn);
 
-    if (turn === playerOne) {
-        turn = playerTwo;
-    } else {
-        turn = playerOne;
-    }
-
-    turnCount++;
-    results.textContent = `It's now ${turn}'s turn.`
     e.target.removeEventListener("click", addTurn);
 
+    turnCount++;
     checkResults();
+
+    if (winner) {
+        announceWinner(winner);
+        setGameOver();
+    } else {
+        turn = (turn === playerOne) ? playerTwo : playerOne;
+        results.textContent = `It's now ${turn}'s turn.`;
+    }
 }
 
 function announceWinner(winner) {
@@ -64,36 +65,28 @@ function checkResults() {
         [2, 4, 6]
     ]
 
-    let gameOver = new Boolean(false);
+    const allSquares = document.querySelectorAll(".square");
 
     winningCombos.forEach(combo => {
-        const allSquares = document.querySelectorAll(".square");
         const playerOneWins = combo.every(cell => allSquares[cell].firstChild?.classList.contains(playerOne));
         const playerTwoWins = combo.every(cell => allSquares[cell].firstChild?.classList.contains(playerTwo));
 
         if (playerOneWins) {
             winner = playerOne;
-            announceWinner(winner);
-            allSquares.forEach(square => square.replaceWith(square.cloneNode(true)));
-            gameOver = true;
         } else if (playerTwoWins) {
             winner = playerTwo;
-            announceWinner(winner);
-            allSquares.forEach(square => square.replaceWith(square.cloneNode(true)));
-            gameOver = true;
-        } else if (!playerOneWins && !playerTwoWins && turnCount === 9) {
-            winner = draw;
-            announceWinner(winner);
-            gameOver = true;
         }
-    })
+    });
 
-    if (gameOver === true) {
-        setGameOver();
+    if (!winner && turnCount === 9) {
+        winner = draw;
     }
 }
 
 function setGameOver() {
+    const allSquares = document.querySelectorAll(".square");
+    allSquares.forEach(square => square.replaceWith(square.cloneNode(true)));
+
     resetButton = document.createElement("button");
     resetButton.textContent = "Play Again";
     document.body.append(resetButton);
@@ -108,13 +101,14 @@ function resetGame() {
     } else {
         turn = playerOne;
     }
+    winner = null;
     results.innerHTML = `${turn} goes first.`;
 
     const allSquares = document.querySelectorAll(".square");
-    for (const square of allSquares) {
-        square.textContent = "";
+    allSquares.forEach(square => {
+        square.innerHTML = "";
         square.addEventListener("click", addTurn);
-    }
+    });
 
-    resetButton.parentNode.removeChild(resetButton);
+    resetButton.remove();
 }
