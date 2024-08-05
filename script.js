@@ -25,7 +25,7 @@ function createBoard() {
         gameBoard.append(cellElement);
     })
 
-    results.innerHTML = `${turn} goes first!`;
+    results.innerHTML = `${turn} goes first.`;
 }
 
 createBoard();
@@ -108,7 +108,7 @@ function resetGame() {
     } else {
         turn = playerOne;
     }
-    results.innerHTML = `${turn} goes first!`;
+    results.innerHTML = `${turn} goes first.`;
 
     const allSquares = document.querySelectorAll(".square");
     for (const square of allSquares) {

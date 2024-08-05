@@ -1,3 +1,13 @@
+:root {
+    --containerWidth: 300px;
+    --colorBg: #3d514a;
+    --colorFg: #e7e8ee;
+    --colorBoard: #58746a;
+    --colorControl: #1a1d1a;
+    --colorAccent: #f18541;
+    --border-radius: 1rem;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -10,49 +20,52 @@ html {
 
 body {
     align-items: center;
-    background: darkslategrey;
-    color: darkorange;
+    background: var(--colorBg);
     display: flex;
     flex-direction: column;
+    gap: 1rem;
     height: 100vh;
     justify-content: center;
-    padding: 2rem;
+    text-align: center;
 }
 
 button {
-    background: black;
-    border: 1px solid black;
-    border-radius: 1rem;
-    color: white;
+    background: var(--colorControl);
+    border: 1px solid var(--colorControl);
+    border-radius: var(--border-radius);
+    color: var(--colorFg);
     cursor: pointer;
-    font-family: "Risque", serif;
-    font-size: 1.25rem;
-    margin-top: 1rem;
-    padding: 1rem 0;
-    width: 300px;
+    font-size: large;
+    font-weight: 600;
+    letter-spacing: 2px;
+    padding: 1rem 1.5rem;
+    text-transform: uppercase;
+    width: var(--containerWidth);
 }
 
 h1 {
+    color: var(--colorAccent);
     font-size: 3rem;
-    margin-bottom: 1rem;
 }
 
 p {
+    color: var(--colorFg);
     font-size: 1.25rem;
+    font-weight: 400;
 }
 
 #gameBoard {
-    background-color: grey;
-    border: 1px solid black;
-    border-radius: 1rem;
+    background-color: var(--colorBoard);
+    border: 1px solid var(--colorControl);
+    border-radius: var(--border-radius);
     display: flex;
     flex-wrap: wrap;
-    height: 300px;
-    margin-bottom: 1rem;
-    width: 300px;
+    height: var(--containerWidth);
+    margin-block: 1rem;
+    width: var(--containerWidth);
 
     .square {
-        border: 1px solid black;
+        border: 1px solid var(--colorControl);
         box-sizing: border-box;
         display: flex;
         align-items: center;
